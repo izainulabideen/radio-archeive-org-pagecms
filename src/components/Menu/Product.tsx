@@ -1,22 +1,26 @@
-"use client"; // Corrected from "use cient" to "use client"
+"use client";
 import React, { useEffect, useState } from "react";
-import { getProductSlugs } from "@/lib/api";
+import { getSixProductNameSlug } from "@/lib/api";
 
 function ProductMenu({ pathname }: { pathname: string }) {
-  const [productNames, setProductNames] = useState<string[]>([]); // Initialize as an empty array
+  const [productNames, setProductNames] = useState([
+    {
+      title: "",
+      slug: "",
+    }
+  ]);
 
   useEffect(() => {
     const fetchProductSlugs = async () => {
       try {
-        const data = await getProductSlugs();
-        console.log(data);
+        const data = await getSixProductNameSlug();
         setProductNames(data);
       } catch (error) {
         console.error("Error fetching product slugs:", error);
       }
     };
 
-    fetchProductSlugs(); // Call the async function
+    fetchProductSlugs();
   }, []);
 
   return (
@@ -43,12 +47,12 @@ function ProductMenu({ pathname }: { pathname: string }) {
       </span>
       <ul className="absolute shadow-lg bg-color3 space-y-3 lg:top-5 max-lg:top-8 -left-6 min-w-[250px] z-50 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-[700px] px-6 group-hover:pb-4 group-hover:pt-6 transition-all duration-500">
         {productNames.map((p) => (
-          <li className="py-2" key={p}>
+          <li className="py-2" key={p.slug}>
             <a
-              href={`/product/${p.split('.')[0]}`} // Assuming you want to link to a product page
+              href={`/product/${p.slug}`} // Assuming you want to link to a product page
               className="hover:text-opacity-80 text-color2 text-sm block"
             >
-              {p.split('.')[0].replaceAll("-", " ")}
+              {p.title}
             </a>
           </li>
         ))}
