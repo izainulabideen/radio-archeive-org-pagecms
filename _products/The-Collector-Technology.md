@@ -1,5 +1,5 @@
 ---
-title: The Collector Technology
+title: The Collector Technology & Technology
 excerpt: Lowering collection costs means more complete archives.
 coverImage: /assets/product/product-2.jpg
 date: 2020-03-16T05:35:07.322Z
